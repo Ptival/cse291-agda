@@ -1,45 +1,40 @@
 module FloydHoare where
 
-open import Data.Bool as B
-  using (Bool; true; false; _∧_; _∨_; not)
-  renaming (_≟_ to _B≟_)
+open import Data.Bool as B using (Bool; true; false; _∧_; _∨_; not) renaming (_≟_ to _B≟_)
 open import Data.Empty using (⊥)
-open import Data.Integer
-  using (ℤ; +_)
-  renaming (_+_ to _Z+_; _-_ to _Z-_; _*_ to _Z*_; _≤_ to _Z≤_)
+open import Data.Integer using (ℤ; +_) renaming (_+_ to _Z+_; _-_ to _Z-_; _*_ to _Z*_; _≤_ to _Z≤_)
 open import Data.Product renaming (Σ to PΣ)
 open import Data.String using (String) renaming (_≟_ to _S≟_)
 open import Data.Sum using (_⊎_)
 open import Data.Unit using (Unit; unit)
 open import Relation.Nullary using (¬_; yes; no)
-open import Relation.Binary.PropositionalEquality
-  renaming (_≡_ to _P≡_)
+open import Relation.Binary.PropositionalEquality renaming (_≡_ to _P≡_)
 
 Var : Set
 Var = String
 
 data Aexp : Set where
-  AI : ℤ → Aexp
-  AL : Var → Aexp
+  AI  : ℤ → Aexp
+  AL  : Var → Aexp
   _+_ : Aexp → Aexp → Aexp
   _-_ : Aexp → Aexp → Aexp
   _*_ : Aexp → Aexp → Aexp
 
 data Bexp : Set where
-  true : Bexp
+  true  : Bexp
   false : Bexp
-  _≡_ : Aexp → Aexp → Bexp
-  _≤_ : Aexp → Aexp → Bexp
-  !_ : Bexp → Bexp
-  _∥_ : Bexp → Bexp → Bexp
-  _&_ : Bexp → Bexp → Bexp
+  _≡_   : Aexp → Aexp → Bexp
+  _≤_   : Aexp → Aexp → Bexp
+  !_    : Bexp → Bexp
+  _∥_   : Bexp → Bexp → Bexp
+  _&_   : Bexp → Bexp → Bexp
 
 data Cmd : Set where
-  skip : Cmd
-  _≔_ : Var → Aexp → Cmd
-  _,_ : Cmd → Cmd → Cmd
+  skip          : Cmd
+  _≔_           : Var → Aexp → Cmd
+  _,_           : Cmd → Cmd → Cmd
   if_then_else_ : Bexp → Cmd → Cmd → Cmd
-  while_do_ : Bexp → Cmd → Cmd
+  while_do_     : Bexp → Cmd → Cmd
 
 Σ : Set
 Σ = Var → ℤ
